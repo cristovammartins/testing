@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang=pt-BR>
+<head>
+<meta charset=UTF-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Palácio do Crepúsculo - Guia de Drops PW</title>
+<script src=https://cdn.tailwindcss.com></script>
+<script src=https://unpkg.com/lucide@latest></script>
+<link rel=preconnect href=https://fonts.googleapis.com>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel=stylesheet>
+<script>tailwind.config={theme:{extend:{colors:{dusk:{bg:"#0a0a0f",card:"#12131e",border:"#2a2d43",accent:"#d4af37",accentGlow:"#ffdf6d",purple:"#6b21a8",red:"#991b1b",darkRed:"#450a0a"}},fontFamily:{cinzel:["Cinzel","serif"],sans:["Inter","sans-serif"]}}}}</script>
+<style>body{background-color:#08080c;background-image:radial-gradient(circle at 50% 0,rgba(107,33,168,.15) 0,transparent 50%),radial-gradient(circle at 80% 80%,rgba(153,27,27,.1) 0,transparent 40%);background-attachment:fixed;color:#e2e8f0;font-family:Inter,sans-serif}.gold-border{border:1px solid rgba(212,175,55,.3);box-shadow:0 0 15px rgba(0,0,0,.5),inset 0 0 15px rgba(212,175,55,.05)}.gold-border-active{border-color:#d4af37;box-shadow:0 0 20px rgba(212,175,55,.25),inset 0 0 10px rgba(212,175,55,.1)}.gold-gradient-text{background:linear-gradient(135deg,#fff2a3 0,#d4af37 50%,#aa7c11 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.item-card{transition:all .2s cubic-bezier(.4, 0, .2, 1)}.item-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(212,175,55,.2)}::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-track{background:#0d0e15}::-webkit-scrollbar-thumb{background:#2a2d43;border-radius:4px;border:1px solid rgba(212,175,55,.2)}::-webkit-scrollbar-thumb:hover{background:#d4af37}.tab-btn{position:relative;transition:all .3s ease}.tab-btn.active::after{content:"";position:absolute;bottom:-2px;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#d4af37,transparent);box-shadow:0 0 8px #d4af37}</style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+<div id=tooltip class="fixed hidden pointer-events-none z-50 bg-slate-900/95 text-white border border-yellow-600/50 rounded-lg p-3 shadow-2xl backdrop-blur-md max-w-xs transition-opacity duration-150">
+<div class="flex items-center gap-3">
+<div id=tooltip-img-container class="w-12 h-12 bg-black/60 border border-yellow-500/30 rounded flex items-center justify-center overflow-hidden flex-shrink-0">
+<img id=tooltip-img src="" alt="" class="w-10 h-10 object-contain">
+</div>
+<div>
+<h4 id=tooltip-title class="font-cinzel text-yellow-400 font-bold text-sm"></h4>
+<p id=tooltip-id class="text-xs text-slate-400 mt-0.5"></p>
+</div>
+</div>
+</div>
+<div class="container mx-auto px-4 py-6 max-w-7xl">
+<header class="text-center mb-8 relative">
+<div class="inline-block relative">
+<div class="absolute -inset-1 bg-gradient-to-r from-purple-600 via-yellow-600 to-red-600 rounded-lg blur opacity-30"></div>
+<div class="relative px-6 py-4 bg-slate-950/80 rounded-lg border border-yellow-500/30 backdrop-blur-md">
+<h1 class="font-cinzel text-3xl md:text-5xl font-extrabold tracking-wider gold-gradient-text drop-shadow">
+PALÁCIO DO CREPÚSCULO
+</h1>
+<p class="text-xs md:text-sm text-slate-400 mt-1 tracking-widest uppercase font-medium">
+Guia Completo de Drops & BOSSES • Perfect World
+</p>
+</div>
+</div>
+</header>
+<div class="flex flex-col md:flex-row gap-4 justify-between items-center mb-6">
+<div class="relative w-full md:w-96">
+<i data-lucide=search class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-yellow-500/70"></i>
+<input id=searchInput placeholder="Pesquisar por Boss ou Item..." class="w-full pl-10 pr-10 py-2.5 bg-slate-900/90 border border-yellow-500/30 rounded-lg focus:outline-none focus:border-yellow-500 text-sm text-yellow-100 placeholder-slate-500 shadow-inner transition-all">
+<button id=clearSearch class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
+<i data-lucide=x class="w-4 h-4"></i>
+</button>
+</div>
+<div class="flex items-center gap-3 text-xs text-slate-400">
+<button style=display:none id=toggleEssenceCalc class="flex items-center gap-2 px-3 py-2 bg-purple-950/40 border border-purple-500/30 hover:border-purple-500 rounded-lg text-purple-300 hover:text-purple-100 transition-all">
+<i data-lucide=calculator class="w-4 h-4"></i>
+<span>Calculadora de Essências</span>
+</button>
+</div>
+</div>
+<div id=essenceDrawer class="hidden mb-6 p-4 bg-gradient-to-r from-purple-950/30 via-slate-900/80 to-slate-950/80 border border-purple-500/30 rounded-xl backdrop-blur-md">
+<div class="flex justify-between items-center mb-3">
+<h3 class="font-cinzel text-yellow-400 font-bold flex items-center gap-2">
+<i data-lucide=sparkles class="w-4 h-4 text-yellow-400"></i>
+Calculadora de Essência do Crepúsculo
+</h3>
+<button id=closeDrawer class="text-slate-400 hover:text-white">
+<i data-lucide=x class="w-4 h-4"></i>
+</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+<div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+<label class="block text-slate-400 text-xs mb-1">Dusk 1 (Cântico Espiritual)</label>
+<div class="text-xs text-slate-400 mb-2">
+Gasta
+<span class="text-yellow-400 font-bold">1 Essência</span> por Boss no modo "Alta"
+</div>
+<div class="flex items-center gap-2">
+<input type=number id=c1BossCount min=0 value=0 class="w-20 bg-slate-950 border border-slate-700 rounded px-2 py-1 text-center font-bold text-yellow-400">
+<span class=text-xs>Bosses Alta</span>
+</div>
+</div>
+<div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+<label class="block text-slate-400 text-xs mb-1">Dusk 2 (Sinfonia do Destino)</label>
+<div class="text-xs text-slate-400 mb-2">
+Gasta
+<span class="text-yellow-400 font-bold">2 Essências</span> por Boss no modo "Alta"
+</div>
+<div class="flex items-center gap-2">
+<input type=number id=c2BossCount min=0 value=0 class="w-20 bg-slate-950 border border-slate-700 rounded px-2 py-1 text-center font-bold text-yellow-400">
+<span class=text-xs>Bosses Alta</span>
+</div>
+</div>
+<div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+<label class="block text-slate-400 text-xs mb-1">Dusk 3 (Ópera do Crepúsculo)</label>
+<div class="text-xs text-slate-400 mb-2">
+Gasta
+<span class="text-yellow-400 font-bold">3 Essências</span> por Boss no modo "Alta"
+</div>
+<div class="flex items-center gap-2">
+<input type=number id=c3BossCount min=0 value=0 class="w-20 bg-slate-950 border border-slate-700 rounded px-2 py-1 text-center font-bold text-yellow-400">
+<span class=text-xs>Bosses Alta</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-slate-800/80 flex justify-between items-center">
+<span class="text-xs text-slate-400">Total de Essências do Crepúsculo Necessárias:</span>
+<span id=totalEssences class="text-xl font-extrabold text-yellow-400 font-cinzel">0 Essências</span>
+</div>
+</div>
+<div id=chapterTabs class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+<button data-chapter=1 class="tab-btn active text-left p-4 rounded-xl bg-slate-900/80 border border-yellow-500/20 hover:border-yellow-500/50 transition-all flex items-center justify-between group">
+<div>
+<span class="text-xs font-semibold uppercase tracking-wider text-yellow-500/80">Dusk 1-1, 1-2, 1-3</span>
+<h2 class="font-cinzel text-lg font-bold text-slate-100 group-hover:text-yellow-400 transition-colors">
+Cântico Espiritual
+</h2>
+<p class="text-xs text-slate-400 mt-0.5">
+Níveis: 60-65 | 68-73 | 76-81
+</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center text-yellow-400 font-cinzel font-bold text-sm">
+I
+</div>
+</button>
+<button data-chapter=2 class="tab-btn text-left p-4 rounded-xl bg-slate-900/80 border border-yellow-500/20 hover:border-yellow-500/50 transition-all flex items-center justify-between group">
+<div>
+<span class="text-xs font-semibold uppercase tracking-wider text-yellow-500/80">Dusk 2-1, 2-2, 2-3</span>
+<h2 class="font-cinzel text-lg font-bold text-slate-100 group-hover:text-yellow-400 transition-colors">
+Sinfonia do Destino
+</h2>
+<p class="text-xs text-slate-400 mt-0.5">
+Níveis: 74-79 | 82-87 | 90-95
+</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center text-yellow-400 font-cinzel font-bold text-sm">
+II
+</div>
+</button>
+<button data-chapter=3 class="tab-btn text-left p-4 rounded-xl bg-slate-900/80 border border-yellow-500/20 hover:border-yellow-500/50 transition-all flex items-center justify-between group">
+<div>
+<span class="text-xs font-semibold uppercase tracking-wider text-yellow-500/80">Dusk 3-1, 3-2, 3-3</span>
+<h2 class="font-cinzel text-lg font-bold text-slate-100 group-hover:text-yellow-400 transition-colors">
+Ópera do Crepúsculo
+</h2>
+<p class="text-xs text-slate-400 mt-0.5">
+Níveis: 88-93 | 95-100 | 100+
+</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center text-yellow-400 font-cinzel font-bold text-sm">
+III
+</div>
+</button>
+</div>
+<div id=chapterBanner class="p-4 rounded-xl bg-gradient-to-r from-slate-900 via-purple-950/40 to-slate-900 border border-yellow-500/30 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+<div>
+<h3 id=bannerTitle class="font-cinzel text-xl font-bold text-yellow-400">
+Capítulo 1: Cântico Espiritual
+</h3>
+<p id=bannerSub class="text-xs text-slate-400">
+Quantidade de Boss "Alta" no Capítulo 1 gasta 1 Essência do Crepúsculo.
+</p>
+</div>
+<div id=bannerModes class="flex gap-2 text-xs">
+</div>
+</div>
+<div id=contentContainer class=space-y-4>
+</div>
+<div id=noResults class="hidden text-center py-16 bg-slate-900/50 rounded-xl border border-dashed border-slate-800">
+<i data-lucide=ghost class="w-12 h-12 text-slate-600 mx-auto mb-3"></i>
+<h3 class="text-lg font-bold text-slate-300">
+Nenhum resultado encontrado
+</h3>
+<p class="text-sm text-slate-500 mt-1">
+Tente pesquisar por outro nome de Boss ou item de drop.
+</p>
+</div>
+</div>
+<footer class="mt-12 py-6 border-t border-slate-900 bg-black/40 text-center text-xs text-slate-600">
+<p>Palácio do Crepúsculo (Dusk) - Perfect World Database</p>
+<p class="mt-1 text-slate-700"></p>
+</footer>
+<script>const DUSK_DATA=[{chapter:1,title:"Capítulo 1: Cântico Espiritual",essenceCost:"1 Essência do Crepúsculo para modo alta.",modes:[{id:"1-1",name:"1-1 Cavaleiros",level:"60-65"},{id:"1-2",name:"1-2 Defensores",level:"68-73"},{id:"1-3",name:"1-3 Valentes",level:"76-81"}],bosses:[{name:"Qin Tian",mode:"Solo / Grupo",bossQty:"Médio / Alta",drops:{1:[{id:15227,name:"Lâmina de Qin Tian",price_medio:36391,price_menor:3e4,price_maior:16e4,negociacoes:401,value_kks:"36.4 K"}],2:[{id:15230,name:"Fragmento da Armadura Qin Tian",price_medio:87e3,price_menor:7e4,price_maior:2e5,negociacoes:570,value_kks:"87 K"}],3:[{id:15239,name:"Carapaça de Qin Tian",price_medio:182308,price_menor:1e5,price_maior:35e4,negociacoes:428,value_kks:"182.3 K"}]}},{name:"Deus Tambor",mode:"Solo / Grupo",bossQty:"Médio / Alta",drops:{1:[{id:15228,name:"Tambor da Interferência",price_medio:82727,price_menor:6e4,price_maior:229e3,negociacoes:509,value_kks:"82.7 K"}],2:[{id:15231,name:"Porta Tambores",price_medio:112375,price_menor:9e4,price_maior:23e4,negociacoes:419,value_kks:"112.4 K"}],3:[{id:15240,name:"Grande Tambor Tenaz",price_medio:187143,price_menor:16e4,price_maior:5e5,negociacoes:361,value_kks:"187.1 K"}]}},{name:"Emissário",mode:"Grupo",bossQty:"Alta",drops:{1:[],2:[{id:15232,name:"Tentáculo Fantasma",price_medio:257500,price_menor:18e4,price_maior:429999,negociacoes:282,value_kks:"257.5 K"}],3:[{id:15242,name:"Espelho Dourado Fantasma",price_medio:392500,price_menor:32e4,price_maior:1199999,negociacoes:282,value_kks:"392.5 K"}]}},{name:"Armadura Sagrada",mode:"Grupo",bossQty:"Alta",drops:{1:[],2:[{id:15235,name:"Fragmento da Armadura Dourada",price_medio:238183,price_menor:14e4,price_maior:4e5,negociacoes:298,value_kks:"238.2 K"}],3:[{id:15245,name:"Pedaço da Armadura Dourada",price_medio:319250,price_menor:9e4,price_maior:5e5,negociacoes:301,value_kks:"319.3 K"},{id:15253,name:"Espírito da Armadura Dourada",price_medio:39e5,price_menor:1e6,price_maior:59e5,negociacoes:25,value_kks:"3.9 M"}]}},{name:"Serpente Ancestral",mode:"Grupo",bossQty:"Alta",drops:{1:[],2:[{id:15234,name:"Pele da Serpente Ancestral",price_medio:262500,price_menor:17e4,price_maior:4e5,negociacoes:354,value_kks:"262.5 K"}],3:[{id:15244,name:"Sangue da Serpente Ancestral",price_medio:172500,price_menor:8e4,price_maior:38e4,negociacoes:196,value_kks:"172.5 K"},{id:15252,name:"Alma da Serpente Ancestral",price_medio:39e5,price_menor:29e5,price_maior:65e5,negociacoes:60,value_kks:"3.9 M"}]}},{name:"Boss, Baú",mode:"Solo / Grupo",bossQty:"Médio / Alta",drops:{1:[{id:15229,name:"Fragmento de Esqueleto",price_medio:3500,price_menor:1500,price_maior:12e3,negociacoes:439,value_kks:"3.5 K"}],2:[{id:15229,name:"Fragmento de Esqueleto",price_medio:3500,price_menor:1500,price_maior:12e3,negociacoes:439,value_kks:"3.5 K"},{id:15238,name:"Caveira das Charadas",price_medio:492,price_menor:400,price_maior:3e3,negociacoes:255,value_kks:"492"}],3:[{id:15238,name:"Caveira das Charadas",price_medio:492,price_menor:400,price_maior:3e3,negociacoes:255,value_kks:"492"},{id:15256,name:"Antiga Espada Ornamental",price_medio:750,price_menor:300,price_maior:2300,negociacoes:197,value_kks:"750"}]}}]},{chapter:2,title:"Capítulo 2: Sinfonia do Destino",essenceCost:"2 Essências do Crepúsculo para modo alta.",modes:[{id:"2-1",name:"2-1 Valorosos",level:"74-79"},{id:"2-2",name:"2-2 Heróicos",level:"82-87"},{id:"2-3",name:"2-3 Iluminados",level:"90-95"}],bosses:[{name:"Leão Insano Zhen Zhun",mode:"Solo / Grupo",bossQty:"Médio / Alta",drops:{1:[{id:15233,name:"Carapaça do Leão Insano",price_medio:100064,price_menor:7e4,price_maior:2e5,negociacoes:388,value_kks:"100.1 K"}],2:[{id:15241,name:"Garras do Leão Insano",price_medio:1e5,price_menor:4e4,price_maior:2e5,negociacoes:337,value_kks:"100 K"}],3:[{id:15257,name:"Lâmina Afiada do Leão Insano",price_medio:98e3,price_menor:15e3,price_maior:1e5,negociacoes:131,value_kks:"98 K"}]}},{name:"Marechal Shen Wuluo (Multiplica)",mode:"Solo / Grupo",bossQty:"Médio / Alta",drops:{1:[{id:15236,name:"Elmo do Tenente Primordial",price_medio:781250,price_menor:6e5,price_maior:135e4,negociacoes:358,value_kks:"781.3 K"},{id:15237,name:"Jóia Negra do Tenente Primordial",price_medio:675e3,price_menor:45e4,price_maior:9e5,negociacoes:12,value_kks:"675 K"}],2:[{id:15243,name:"Espinho do Tenente Primordial",price_medio:205e3,price_menor:19e4,price_maior:65e4,negociacoes:274,value_kks:"205 K"}],3:[{id:15259,name:"Protetor do Tenente Primordial",price_medio:25e4,price_menor:14e4,price_maior:45e4,negociacoes:250,value_kks:"250 K"}]}},{name:"Marechal Feng Wuhen (Cavalo)",mode:"Solo / Grupo",bossQty:"Médio / Alta",drops:{1:[{id:15246,name:"Armadura Negra de Feng Wuhen",price_medio:101667,price_menor:8e4,price_maior:26e4,negociacoes:292,value_kks:"101.7 K"},{id:15254,name:"Luvas de Feng Wuhen",price_medio:1116667,price_menor:6e5,price_maior:2e6,negociacoes:159,value_kks:"1.1 M"}],2:[{id:15249,name:"Estandarte de Feng Wushen",price_medio:96667,price_menor:7e4,price_maior:150111,negociacoes:402,value_kks:"96.7 K"},{id:15254,name:"Luvas de Feng Wuhen",price_medio:1116667,price_menor:6e5,price_maior:2e6,negociacoes:159,value_kks:"1.1 M"}],3:[{id:15261,name:"Chifre de Sela de Shenwu",price_medio:246250,price_menor:6e4,price_maior:3e5,negociacoes:156,value_kks:"246.3 K"}]}},{name:"Grande Símio",mode:"Grupo",bossQty:"Alta",drops:{1:[{id:15247,name:"Presa do Grande Símio",price_medio:316250,price_menor:195e3,price_maior:6e5,negociacoes:347,value_kks:"316.3 K"},{id:15255,name:"Mão do Grande Símio",price_medio:3933333,price_menor:19e5,price_maior:6e6,negociacoes:133,value_kks:"3.9 M"}],2:[{id:15247,name:"Couraça do Grande Símio",price_medio:316250,price_menor:195e3,price_maior:6e5,negociacoes:347,value_kks:"316.3 K"},{id:15255,name:"Mão do Grande Símio",price_medio:3933333,price_menor:19e5,price_maior:6e6,negociacoes:133,value_kks:"3.9 M"}],3:[{id:15264,name:"Cauda do Grande Símio",price_medio:525714,price_menor:199999,price_maior:75e4,negociacoes:262,value_kks:"525.7 K"}]}},{name:"Devorador Insano",mode:"Grupo",bossQty:"Alta",drops:{1:[{id:15248,name:"Garra do Devorador",price_medio:84667,price_menor:7e4,price_maior:24e4,negociacoes:190,value_kks:"84.7 K"}],2:[{id:15251,name:"Pele do Devorador",price_medio:76666,price_menor:3e4,price_maior:15e4,negociacoes:246,value_kks:"76.7 K"}],3:[{id:15267,name:"Barba de Ferro do Devorador",price_medio:1417500,price_menor:1e6,price_maior:2e6,negociacoes:472,value_kks:"1.4 M"}]}},{name:"Emissário das Sete Almas",mode:"Grupo",bossQty:"Alta",drops:{1:[],2:[{id:15265,name:"Pó Estelar",price_medio:45e3,price_menor:2e4,price_maior:8e4,negociacoes:155,value_kks:"45 K"},{id:15275,name:"Presa Prismática",price_medio:32571429,price_menor:28e6,price_maior:4e7,negociacoes:79,value_kks:"32.6 M"}],3:[{id:15269,name:"Roda Prismática",price_medio:2e4,price_menor:2e4,price_maior:1e5,negociacoes:175,value_kks:"20 K"},{id:15270,name:"Farelo Estelar",price_medio:88333,price_menor:2e4,price_maior:1e5,negociacoes:151,value_kks:"88.3 K"},{id:15277,name:"Poder do Espírito de Cristal",price_medio:4825e3,price_menor:2e6,price_maior:5e6,negociacoes:76,value_kks:"4.8 M"}]}},{name:"Aniquilador Ancestral",mode:"Grupo",bossQty:"Alta",drops:{1:[],2:[],3:[{id:15271,name:"Chifre de Demônio Ancestral",price_medio:75e3,price_menor:15e3,price_maior:125e3,negociacoes:104,value_kks:"75 K"},{id:15272,name:"Cinzas de Demônio Ancestral",price_medio:84333,price_menor:18e3,price_maior:15e4,negociacoes:83,value_kks:"84.3 K"},{id:15278,name:"Alma do Demônio Ancestral",price_medio:45266667,price_menor:4e7,price_maior:57999990,negociacoes:44,value_kks:"45.3 M"}]}},{name:"Boss, Baú",mode:"Solo / Grupo",bossQty:"Médio / Alta",drops:{1:[{id:15238,name:"Caveira das Charadas",price_medio:492,price_menor:400,price_maior:3e3,negociacoes:255,value_kks:"492"},{id:15256,name:"Antiga Espada Ornamental",price_medio:750,price_menor:300,price_maior:2300,negociacoes:197,value_kks:"750"}],2:[{id:15256,name:"Antiga Espada Ornamental",price_medio:750,price_menor:300,price_maior:2300,negociacoes:197,value_kks:"750"},{id:15279,name:"Pedra do Lar",price_medio:1019,price_menor:400,price_maior:2e3,negociacoes:335,value_kks:"1 K"}],3:[{id:15279,name:"Pedra do Lar",price_medio:1019,price_menor:400,price_maior:2e3,negociacoes:335,value_kks:"1 K"}]}}]},{chapter:3,title:"Capítulo 3: Ópera do Crepúsculo",essenceCost:"3 Essências do Crepúsculo para modo alta.",modes:[{id:"3-1",name:"3-1 Prestiagiados",level:"88-93"},{id:"3-2",name:"3-2 Sacerdotes",level:"95-100"},{id:"3-3",name:"3-3 Santos",level:"100+"}],bosses:[{name:"Qiu Jian",mode:"Solo / Grupo",bossQty:"Médio / Alta",drops:{1:[{id:15258,name:"Armadura de Ferro da Escuridão",price_medio:41999,price_menor:1e4,price_maior:99e3,negociacoes:189,value_kks:"42 K"}],2:[{id:15280,name:"Armadura da Escuridão",price_medio:1e4,price_menor:9500,price_maior:1e5,negociacoes:121,value_kks:"10 K"}],3:[{id:15282,name:"Ferramentas da Escuridão",price_medio:29e3,price_menor:4444,price_maior:5e4,negociacoes:85,value_kks:"29 K"}]}},{name:"Escravo Demônio",mode:"Solo / Grupo",bossQty:"Médio / Alta",drops:{1:[{id:15260,name:"Chifre Longo do Escravo Demônio",price_medio:0,price_menor:1e4,price_maior:1e5,negociacoes:152,value_kks:"0"},{id:15273,name:"Carapaça do Escravo Fantasma",price_medio:41e5,price_menor:25e5,price_maior:6e6,negociacoes:101,value_kks:"4.1 M"}],2:[{id:15281,name:"Lâmina-Machado do Fantasma",price_medio:0,price_menor:7e3,price_maior:4e4,negociacoes:106,value_kks:"0"}],3:[{id:15284,name:"Coração de Fogo do Fantasma",price_medio:0,price_menor:3999,price_maior:3e4,negociacoes:116,value_kks:"0"}]}},{name:"Mulher Demônio",mode:"Solo / Grupo",bossQty:"Médio / Alta",drops:{1:[{id:15262,name:"Mão da Mulher Demônio",price_medio:159375,price_menor:14e4,price_maior:35e4,negociacoes:318,value_kks:"159.4 K"}],2:[{id:15286,name:"Energia da Mulher Demônio",price_medio:1e4,price_menor:7e3,price_maior:4e4,negociacoes:109,value_kks:"10 K"},{id:15299,name:"Alma da Mulher Demônio",price_medio:1295e4,price_menor:1e7,price_maior:18e6,negociacoes:131,value_kks:"12.9 M"}],3:[{id:15283,name:"Coroa da Mulher Demônio",price_medio:5e3,price_menor:4444,price_maior:3e4,negociacoes:104,value_kks:"5 K"}]}},{name:"Sagrada Mãe das Almas",mode:"Grupo",bossQty:"Alta",drops:{1:[{id:15263,name:"Jóia da Sagrada Mãe",price_medio:137500,price_menor:1e5,price_maior:45e4,negociacoes:312,value_kks:"137.5 K"},{id:15274,name:"Diadema da Sagrada Mãe",price_medio:255e4,price_menor:1e6,price_maior:3e6,negociacoes:52,value_kks:"2.5 M"}],2:[{id:15285,name:"Pedra Espiritual da Sagrada Mãe",price_medio:85e3,price_menor:15e3,price_maior:119e3,negociacoes:82,value_kks:"85 K"}],3:[{id:15288,name:"Coração da Sagrada Mãe",price_medio:25e3,price_menor:7e3,price_maior:1e5,negociacoes:54,value_kks:"25 K"}]}},{name:"Grande Besta das Trevas",mode:"Grupo",bossQty:"Alta",drops:{1:[{id:15268,name:"Carapaça da Grande Besta",price_medio:3793750,price_menor:219e4,price_maior:5e6,negociacoes:292,value_kks:"3.8 M"},{id:15276,name:"Casco da Grande Besta",price_medio:89e5,price_menor:1,price_maior:139e5,negociacoes:53,value_kks:"8.9 M"}],2:[{id:15289,name:"Hálito Negro da Grande Besta",price_medio:46e5,price_menor:1,price_maior:46e5,negociacoes:46,value_kks:"4.6 M"}],3:[{id:15291,name:"Chifre Rubro da Grande Besta",price_medio:0,price_menor:1,price_maior:2e4,negociacoes:31,value_kks:"0"},{id:15301,name:"Alma da Grande Besta",price_medio:42975e3,price_menor:35e6,price_maior:52e6,negociacoes:110,value_kks:"43 M"}]}},{name:"Tie Luoyun (Rei Fantasma)",mode:"Grupo",bossQty:"Alta",drops:{1:[{id:15266,name:"Pingente do Rei Fantasma",price_medio:186667,price_menor:1e5,price_maior:25e4,negociacoes:73,value_kks:"186.7 K"}],2:[{id:15287,name:"Poder do Rei Fantasma",price_medio:5825e3,price_menor:1,price_maior:79e5,negociacoes:27,value_kks:"5.8 M"}],3:[{id:15290,name:"Seda Dourada do Rei Fantasma",price_medio:5e4,price_menor:2e4,price_maior:28e4,negociacoes:44,value_kks:"50 K"},{id:15300,name:"Bainha do Rei Fantasma",price_medio:5638e4,price_menor:45e6,price_maior:65e6,negociacoes:67,value_kks:"56.4 M"}]}},{name:"Ministro Zi Cun",mode:"Grupo",bossQty:"Alta",drops:{1:[],2:[{id:15294,name:"Casco da Grande Besta",price_medio:33e4,price_menor:8e4,price_maior:7e5,negociacoes:111,value_kks:"330 K"},{id:15295,name:"Selo do Ministro",price_medio:1e4,price_menor:1e4,price_maior:299999,negociacoes:52,value_kks:"10 K"},{id:15303,name:"Alma Pura da Escuridão",price_medio:3745e4,price_menor:32e6,price_maior:45e6,negociacoes:33,value_kks:"37.5 M"}],3:[{id:15297,name:"Chicote de Seda Pura",price_medio:2e4,price_menor:1,price_maior:5e4,negociacoes:37,value_kks:"20 K"},{id:15305,name:"Asas Puras Brilhantes",price_medio:0,price_menor:299999,price_maior:2e6,negociacoes:30,value_kks:"0"},{id:0,name:"Cetro do Poder do Crepúsculo",price_medio:0,price_menor:0,price_maior:0,negociacoes:0,value_kks:"0"}]}},{name:"Rei Cang Li (Imperador do Crepúsculo)",mode:"Grupo",bossQty:"Alta",drops:{1:[],2:[{id:15293,name:"Lâmina Verdejante",price_medio:2e4,price_menor:2e4,price_maior:145e3,negociacoes:47,value_kks:"20 K"},{id:15292,name:"Jóia Verdejante",price_medio:466333,price_menor:2e4,price_maior:499999,negociacoes:47,value_kks:"466.3 K"},{id:15302,name:"Destino do Crepúsculo",price_medio:65e6,price_menor:65e6,price_maior:8e7,negociacoes:22,value_kks:"65 M"}],3:[{id:15296,name:"Espírito Guerreiro do Rei",price_medio:12500,price_menor:1,price_maior:3e4,negociacoes:14,value_kks:"12.5 K"},{id:15304,name:"Remorso do Crepúsculo",price_medio:19e6,price_menor:14e6,price_maior:225e5,negociacoes:35,value_kks:"19 M"},{id:0,name:"Máscara Dourada",price_medio:0,price_menor:0,price_maior:0,negociacoes:0,value_kks:"0"}]}},{name:"Senhor das Ilusões",mode:"Grupo",bossQty:"Alta",drops:{1:[],2:[],3:[{id:15298,name:"Fonte Espelhada Ilusória",price_medio:0,price_menor:1e4,price_maior:1e5,negociacoes:50,value_kks:"0"},{id:15306,name:"Marca do Senhor das Ilusões",price_medio:9e5,price_menor:1,price_maior:3e6,negociacoes:40,value_kks:"900 K"},{id:0,name:"Pedra dos Sonhos",price_medio:0,price_menor:0,price_maior:0,negociacoes:0,value_kks:"0"},{id:0,name:"Espírito do Céu e da Terra",price_medio:0,price_menor:0,price_maior:0,negociacoes:0,value_kks:"0"}]}},{name:"Boss, Mobs, Baú",mode:"Solo / Grupo",bossQty:"Médio / Alta",drops:{1:[{id:15256,name:"Antiga Espada Ornamental",price_medio:750,price_menor:300,price_maior:2300,negociacoes:197,value_kks:"750"},{id:15279,name:"Pedra do Lar",price_medio:1019,price_menor:400,price_maior:2e3,negociacoes:335,value_kks:"1 K"}],2:[{id:15279,name:"Pedra do Lar",price_medio:1019,price_menor:400,price_maior:2e3,negociacoes:335,value_kks:"1 K"},{id:0,name:"Símbolo do Crepúsculo",price_medio:0,price_menor:0,price_maior:0,negociacoes:0,value_kks:"0"}],3:[{id:0,name:"Símbolo do Crepúsculo",price_medio:0,price_menor:0,price_maior:0,negociacoes:0,value_kks:"0"}]}}]}];let activeChapter=1,searchQuery="";const contentContainer=document.getElementById("contentContainer"),searchInput=document.getElementById("searchInput"),clearSearchBtn=document.getElementById("clearSearch"),noResults=document.getElementById("noResults"),tabButtons=document.querySelectorAll(".tab-btn"),bannerTitle=document.getElementById("bannerTitle"),bannerSub=document.getElementById("bannerSub"),bannerModes=document.getElementById("bannerModes"),tooltip=document.getElementById("tooltip"),tooltipImg=document.getElementById("tooltip-img"),tooltipTitle=document.getElementById("tooltip-title"),tooltipId=document.getElementById("tooltip-id"),toggleEssenceBtn=document.getElementById("toggleEssenceCalc"),essenceDrawer=document.getElementById("essenceDrawer"),closeDrawerBtn=document.getElementById("closeDrawer"),c1Input=document.getElementById("c1BossCount"),c2Input=document.getElementById("c2BossCount"),c3Input=document.getElementById("c3BossCount"),totalEssencesSpan=document.getElementById("totalEssences");function getItemIconUrl(e){if(!e||0===e)return null;return`assets/img/items/${e}.png`}function render(){lucide.createIcons(),contentContainer.innerHTML="";const e=DUSK_DATA.find((e=>e.chapter===activeChapter));e&&(bannerTitle.textContent=e.title,bannerSub.textContent=e.essenceCost,bannerModes.innerHTML=e.modes.map((e=>`\n                    <span class="px-2.5 py-1 bg-yellow-500/10 border border-yellow-500/30 text-yellow-300 rounded-md font-medium">\n                        ${e.name} (${e.level})\n                    </span>\n                `)).join(""));let o=!1;(""!==searchQuery.trim()?DUSK_DATA:[e]).forEach((e=>{const a=e.modes;e.bosses.forEach((i=>{const r=searchQuery.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim(),n=i.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").includes(r);let c=!1;if(Object.values(i.drops).forEach((e=>{e.forEach((e=>{e.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").includes(r)&&(c=!0)}))})),""!==r&&!n&&!c)return;o=!0;const s=document.createElement("div");s.className="bg-slate-900/90 border border-slate-800 hover:border-yellow-500/40 rounded-xl overflow-hidden shadow-lg transition-all";let d=""!==searchQuery.trim()?`<span class="text-xs px-2 py-0.5 bg-purple-950 text-purple-300 border border-purple-800 rounded ml-2">Capítulo ${e.chapter}</span>`:"";s.innerHTML=`\n                        \x3c!-- BOSS HEADER --\x3e\n                        <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 px-4 py-3 border-b border-slate-800/80 flex flex-wrap justify-between items-center gap-2">\n                            <div class="flex items-center gap-2">\n                                <i data-lucide="shield-alert" class="w-4 h-4 text-red-500"></i>\n                                <h4 class="font-cinzel text-base font-bold text-red-400 tracking-wide">${i.name}</h4>\n                                ${d}\n                            </div>\n                            <div class="flex items-center gap-3 text-xs text-slate-400">\n                                <span class="px-2 py-0.5 rounded bg-slate-800/80 border border-slate-700">Modo: <strong class="text-slate-200">${i.mode}</strong></span>\n                                <span class="px-2 py-0.5 rounded bg-slate-800/80 border border-slate-700">Qtde Boss: <strong class="text-slate-200">${i.bossQty}</strong></span>\n                            </div>\n                        </div>\n\n                        \x3c!-- MODES DROPS GRID --\x3e\n                        <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-800/60 bg-slate-950/40">\n                            ${[1,2,3].map((e=>{const o=a[e-1],r=i.drops[e]||[];return`\n                                    <div class="p-3">\n                                        <div class="text-xs font-semibold text-yellow-500/80 mb-2.5 pb-1 border-b border-slate-800/50 flex justify-between items-center">\n                                            <span>${o.name}</span>\n                                            <span class="text-[10px] text-slate-500 bg-slate-900 px-1.5 py-0.5 rounded">${o.level}</span>\n                                        </div>\n                                        \n                                        ${0===r.length?'\n                                            <div class="text-xs text-slate-600 italic py-2 text-center">Nada</div>\n                                        ':`\n                                            <div class="space-y-2">\n                                                ${r.map((e=>{const o=getItemIconUrl(e.id),a=e.name.charAt(0);return`\n                                                        <div class="item-card flex items-center gap-2.5 p-1.5 rounded-lg bg-slate-900/60 border border-slate-800/80 hover:border-yellow-500/50 cursor-pointer group"\n                                                             data-item-name="${e.name}" data-item-id="${e.id}" data-item-img="${o||""}">\n                                                            \n                                                            <div class="w-8 h-8 rounded bg-black/80 border border-slate-700 group-hover:border-yellow-500/60 flex items-center justify-center overflow-hidden flex-shrink-0 relative">\n                                                                ${o?`\n                                                                    <img src="${o}" alt="${e.name}" \n                                                                         class="w-7 h-7 object-contain"\n                                                                         onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">\n                                                                    <div class="w-full h-full bg-slate-800 text-yellow-500 font-bold text-xs hidden items-center justify-center">${a}</div>\n                                                                `:`\n                                                                    <div class="w-full h-full bg-slate-800 text-yellow-500 font-bold text-xs flex items-center justify-center">${a}</div>\n                                                                `}\n                                                            </div>\n\n                                                            <div class="flex-1 min-w-0">\n                                                                <p class="text-xs font-medium text-slate-300 group-hover:text-yellow-300 transition-colors truncate">\n                                                                    ${e.name}\n                                                                </p>\n                                                                \n                                                                ${e.price_menor?`<span class="text-[10px] text-slate-500 block">Preço Menor: ${parseFloat(e.price_menor).toLocaleString("pt-BR")}</span>`:""}\n                                                                ${e.price_medio?`<span class="text-[10px] text-slate-500 block">Preço Médio: ${parseFloat(e.price_medio).toLocaleString("pt-BR")}</span>`:""}\n                                                                ${e.price_maior?`<span class="text-[10px] text-slate-500 block">Preço Maior : ${parseFloat(e.price_maior).toLocaleString("pt-BR")}</span>`:""}\n                                                            </div>\n                                                        </div>\n                                                    `})).join("")}\n                                            </div>\n                                        `}\n                                    </div>\n                                `})).join("")}\n                        </div>\n                    `,contentContainer.appendChild(s)}))})),o?noResults.classList.add("hidden"):noResults.classList.remove("hidden"),lucide.createIcons()}function attachItemEvents(){document.querySelectorAll(".item-card").forEach((e=>{e.addEventListener("mouseenter",(o=>{const a=e.getAttribute("data-item-name"),i=e.getAttribute("data-item-id"),r=e.getAttribute("data-item-img");tooltipTitle.textContent=a,tooltipId.textContent=i&&"0"!==i?`ID do Item: ${i}`:"Item Especial",r?(tooltipImg.src=r,tooltipImg.style.display="block"):tooltipImg.style.display="none",tooltip.classList.remove("hidden")})),e.addEventListener("mousemove",(e=>{tooltip.style.left=e.clientX+15+"px",tooltip.style.top=e.clientY+15+"px"})),e.addEventListener("mouseleave",(()=>{tooltip.classList.add("hidden")}))}))}function updateEssenceTotal(){const e=1*(parseInt(c1Input.value)||0)+2*(parseInt(c2Input.value)||0)+3*(parseInt(c3Input.value)||0);totalEssencesSpan.textContent=`${e} Essência${1!==e?"s":""}`}tabButtons.forEach((e=>{e.addEventListener("click",(()=>{tabButtons.forEach((e=>{e.classList.remove("active"),e.classList.remove("gold-border-active")})),e.classList.add("active"),e.classList.add("gold-border-active"),activeChapter=parseInt(e.getAttribute("data-chapter")),searchInput.value="",searchQuery="",clearSearchBtn.classList.add("hidden"),render()}))})),searchInput.addEventListener("input",(e=>{searchQuery=e.target.value,""!==searchQuery.trim()?clearSearchBtn.classList.remove("hidden"):clearSearchBtn.classList.add("hidden"),render()})),clearSearchBtn.addEventListener("click",(()=>{searchInput.value="",searchQuery="",clearSearchBtn.classList.add("hidden"),render()})),[c1Input,c2Input,c3Input].forEach((e=>{e.addEventListener("input",updateEssenceTotal)})),closeDrawerBtn.addEventListener("click",(()=>{essenceDrawer.classList.add("hidden")})),window.addEventListener("DOMContentLoaded",(()=>{render()}))</script>
+
+<script>
+    function removerTooltip(){try{const e=document.getElementById("tooltip"),o=document.querySelector('a[href="https://tiiny.host/fl?ref=free-site"]');e&&e.remove(),o&&o.parentElement&&o.parentElement.remove()}catch(e){console.log(e)}}(async()=>{await new Promise(e=>setTimeout(e,200)),removerTooltip(),await new Promise(e=>setTimeout(e,500)),removerTooltip(),await new Promise(e=>setTimeout(e,1e3)),removerTooltip(),await new Promise(e=>setTimeout(e,2e3)),removerTooltip(),await new Promise(e=>setTimeout(e,2e3)),removerTooltip(),await new Promise(e=>setTimeout(e,2e3)),removerTooltip(),setInterval(removerTooltip,3e4)})();
+</script>
+
+</body>
+</html>
